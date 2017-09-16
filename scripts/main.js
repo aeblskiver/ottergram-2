@@ -2,9 +2,13 @@ var DETAIL_IMAGE_SELECTOR = '[-data-image-role="target"]';
 var DETAIL_TITLE_SELECTOR = '[-data-image-role="title"]';
 var DETAIL_FRAME_SELECTOR = '[-data-image-role="frame"]';
 var THUMBNAIL_LINK_SELECTOR = '[-data-image-role="trigger"]';
+var TACO_CAT_SELECTOR = '[data-image-tacocat="true"]';
 var HIDDEN_DETAIL_CLASS = 'hidden-detail';
 var TINY_EFFECT_CLASS = 'is-tiny';
 var ESC_KEY = 27;
+
+var TACO_CAT_URL = 'img/tacocat.jpg';
+var TACO_CAT_TEXT = 'Tacocat is tacocaT';
 
 function setDetails(imageUrl, titleText) {
   'use strict'; //Conform to the most recent standard version of JavaScript
@@ -27,7 +31,13 @@ function titleFromThumb(thumbnail) {
 
 function setDetailsFromThumb(thumbnail) {
   'use strict';
-  setDetails(imageFromThumb(thumbnail), titleFromThumb(thumbnail));
+  var isTacoCat = thumbnail.getAttribute('data-image-tacocat');
+  if (isTacoCat == 'true') {
+    setDetails(TACO_CAT_URL, TACO_CAT_TEXT);
+    randomizeTacoCat();
+  } else {
+    setDetails(imageFromThumb(thumbnail), titleFromThumb(thumbnail));
+  }
 }
 
 function addThumbClickHandler(thumb) {
@@ -71,10 +81,31 @@ function addKeyPressHandler() {
   });
 }
 
+
+function getRandomNumber() {
+  var rand = Math.floor((Math.random() * 4) + 1);
+  console.log(rand);
+  return rand;
+}
+
+function setTacoCat(thumb) {
+  thumb.setAttribute('data-image-tacocat', 'true');
+}
+
+function randomizeTacoCat() {
+  var tacoCat = document.querySelector(TACO_CAT_SELECTOR);
+  tacoCat.setAttribute('data-image-tacocat', 'false');
+  var number = getRandomNumber();
+  var thumbnails = getThumbnailsArray();
+  setTacoCat(thumbnails[number]);
+}
+
 function initializeEvents() {
   'use strict';
   var thumbnails = getThumbnailsArray();
   thumbnails.forEach(addThumbClickHandler);
+  var number = getRandomNumber();
+  setTacoCat(thumbnails[number]);
   addKeyPressHandler();
 }
 

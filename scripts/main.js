@@ -42,7 +42,7 @@ function setDetailsFromThumb(thumbnail) {
 
 function addThumbClickHandler(thumb) {
   'use strict';
-  thumb.addEventListener('click', function (event) {
+  thumb.addEventListener('click', function(event) {
     event.preventDefault();
     setDetailsFromThumb(thumb);
     showDetails();
@@ -65,14 +65,14 @@ function showDetails() {
   var frame = document.querySelector(DETAIL_FRAME_SELECTOR);
   document.body.classList.remove(HIDDEN_DETAIL_CLASS);
   frame.classList.add(TINY_EFFECT_CLASS);
-  setTimeout(function () {
+  setTimeout(function() {
     frame.classList.remove(TINY_EFFECT_CLASS);
   }, 50);
 }
 
 function addKeyPressHandler() {
   'use strict';
-  document.body.addEventListener('keyup', function (event) {
+  document.body.addEventListener('keyup', function(event) {
     event.preventDefault();
     console.log(event.keyCode);
     if (event.keyCode === ESC_KEY) {
@@ -84,7 +84,6 @@ function addKeyPressHandler() {
 
 function getRandomNumber() {
   var rand = Math.floor((Math.random() * 4) + 1);
-  console.log(rand);
   return rand;
 }
 
